@@ -4,7 +4,7 @@ build-backend = "maturin"
 
 [project]
 name = "tract-python"
-requires-python = ">=3.6"
+requires-python = ">=3.7"
 readme = "README.md"
 keywords = ["tract", "neural network engine", "deep learning"]
 classifiers = [
