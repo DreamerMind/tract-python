@@ -43,9 +43,9 @@ This project is in alpha state.
 My personnal usecase is to be able to run benchmarks (+10M inferences) with 'tract' engine.
 
 Ideally I would like to support most of the `tract-cli` features:
-- [X] load NNEF dir
+- [X] load NNEF dir and .tgz
 - [X] run simple plan
-- [ ] load all supported formats: ONNX, TF, from HTTP, from .tgz
+- [ ] load all supported formats: ONNX, TF, from HTTP
 - [ ] expose computations of model informations:
     - [ ] number of parameters
     - [ ] size on disk
