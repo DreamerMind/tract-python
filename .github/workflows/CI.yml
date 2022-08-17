@@ -12,13 +12,10 @@ jobs:
     - uses: actions/setup-python@v4
       with:
         python-version: '3.7'
-    - name: update python version priority
-      run: |
-        update-alternatives --install /usr/bin/python python which $(which python) 10
     - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip
-        pip install cffi numpy
+        python3 -m pip install --upgrade pip
+        python3 -m pip install cffi numpy
 
     - uses: messense/maturin-action@v1
       with:
@@ -55,8 +52,8 @@ jobs:
     - uses: actions/checkout@v3
     - name: Install dependencies
       run: |
-        python3 -m pip install --upgrade pip
-        python3 -m pip install cffi numpy
+        /Users/runner/hostedtoolcache/Python/3.9.13/x64/bin/python3 -m pip install --upgrade pip
+        /Users/runner/hostedtoolcache/Python/3.9.13/x64/bin/python3 -m pip install cffi numpy
     - uses: messense/maturin-action@v1
       with:
         command: build
