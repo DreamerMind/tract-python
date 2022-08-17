@@ -1,5 +1,6 @@
 use std::path::Path;
 use tract_hir::prelude::*;
+use tract_pulse::WithPulse;
 
 use anyhow::{bail, format_err, Context, Result};
 use ffi_convert::{CReprOf, RawBorrow, RawPointerConverter};
@@ -153,11 +154,11 @@ macro_rules! get_typed_model_plan_from {
 }
 
 /// load simple tract Plan of TypedModel from NNEF
-pub fn call_load_plan_from_nnef_dir(
+pub fn call_load_plan_from_nnef_path(
     dirpath_string: *const libc::c_char,
     plan_ptr: *mut *const CTypedModelPlan,
 ) -> Result<()> {
-    let nnef = tract_nnef::nnef().with_tract_core();
+    let nnef = tract_nnef::nnef().with_tract_core().with_pulse();
     let dir_path = Path::new(create_rust_str_from!(dirpath_string));
     let plan: TypedRunnableModel<TypedModel> = SimplePlan::new(
         nnef.model_for_path(dir_path)
@@ -251,11 +252,11 @@ pub fn call_run_typed_model_plan(
 }
 
 #[no_mangle]
-pub unsafe extern "C" fn load_plan_from_nnef_dir(
+pub unsafe extern "C" fn load_plan_from_nnef_path(
     dirpath_string: *const libc::c_char,
     plan_ptr: *mut *const CTypedModelPlan,
 ) -> TractResult {
-    wrap(|| call_load_plan_from_nnef_dir(dirpath_string, plan_ptr))
+    wrap(|| call_load_plan_from_nnef_path(dirpath_string, plan_ptr))
 }
 
 #[no_mangle]

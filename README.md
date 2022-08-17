@@ -1,6 +1,6 @@
 # tract-python
 
- [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+ [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
  [![PyPI version](https://badge.fury.io/py/tract_python.svg)](https://badge.fury.io/py/tract_python)
  [![CI](https://github.com/DreamerMind/tract-python/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/DreamerMind/tract-python/actions/workflows/CI.yml)
 
@@ -43,9 +43,9 @@ This project is in alpha state.
 My personnal usecase is to be able to run benchmarks (+10M inferences) with 'tract' engine.
 
 Ideally I would like to support most of the `tract-cli` features:
-- [X] load NNEF dir
+- [X] load NNEF dir and .tgz
 - [X] run simple plan
-- [ ] load all supported formats: ONNX, TF, from HTTP, from .tgz
+- [ ] load all supported formats: ONNX, TF, from HTTP
 - [ ] expose computations of model informations:
     - [ ] number of parameters
     - [ ] size on disk
