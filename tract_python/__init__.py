@@ -5,7 +5,7 @@ import numpy as np
 
 from .tract_python import ffi, lib
 
-__version__ = "0.2.0"
+__version__ = "0.2.1"
 
 
 def string_at(ptr):
@@ -18,9 +18,11 @@ class TractModel:
         self._original_path = original_path
 
     @classmethod
-    def load_nnef_from_dir(cls, path: Path):
+    def load_nnef_from_path(cls, path: Path):
         _model = ffi.new("CTypedModelPlan * *")
-        exit_code = lib.load_plan_from_nnef_dir(str(path).encode("utf-8"), _model)
+        exit_code = lib.load_plan_from_nnef_path(
+            str(path).encode("utf-8"), _model
+        )
         if exit_code:
             lib_error = ffi.new("char * *")
             lib.tract_get_last_error(lib_error)
@@ -31,7 +33,9 @@ class TractModel:
     def run(self, **kwargs):
         for k, v in kwargs.items():
             if not isinstance(k, str):
-                raise TypeError(".run(**kwargs) need kwargs to have str as keys")
+                raise TypeError(
+                    ".run(**kwargs) need kwargs to have str as keys"
+                )
             if not isinstance(v, np.ndarray):
                 raise TypeError(
                     ".run(**kwargs) need kwargs to have np.ndarray as values"
