@@ -9,6 +9,14 @@
 Tract Cli is very feature-full but reloading a model each time you wish
 to do an inference is computationaly costy and slow.
 
+## Install
+
+Install using pip:
+```
+pip install tract_python
+```
+
+
 ## Usage
 
 ```python
