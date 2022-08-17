@@ -21,3 +21,5 @@ tract-nnef = { git = "https://github.com/sonos/tract.git", ref = "be47f1d037302e
 tract-pulse = { git = "https://github.com/sonos/tract.git", ref = "be47f1d037302e7f9bf877af42df5d71a6badb17" }
 tract-hir = { git = "https://github.com/sonos/tract.git", ref = "be47f1d037302e7f9bf877af42df5d71a6badb17" }
 
+[package.metadata.maturin]
+requires-dist = ["cffi", "numpy"]
