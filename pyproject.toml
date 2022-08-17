@@ -18,7 +18,14 @@ dependencies = ["cffi", "numpy"]
 
 description = "bindings of sonos/tract rust NN inference enging for python"
 
-license = "MIT"
+liscense = "MIT"
+
+[project.optional-dependencies]
+dev = ["black", "bumpver", "isort", "pip-tools", "pytest"]
+
 
 [tool.maturin]
 bindings = "cffi"
+
+[project.urls]
+Homepage = "https://github.com/DreamerMind/tract-python"
