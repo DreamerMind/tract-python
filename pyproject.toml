@@ -9,9 +9,16 @@ classifiers = [
     "Programming Language :: Rust",
     "Programming Language :: Python :: Implementation :: CPython",
     "Programming Language :: Python :: Implementation :: PyPy",
+    "Intended Audience :: Developers",
+    "Natural Language :: English",
+    "science"
 ]
 
-dependencies = ["cffi"]
+dependencies = ["cffi", "numpy"]
+
+description = "bindings of sonos/tract rust NN inference enging for python"
+
+license = "MIT"
 
 [tool.maturin]
 bindings = "cffi"
