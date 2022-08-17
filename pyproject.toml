@@ -4,7 +4,9 @@ build-backend = "maturin"
 
 [project]
 name = "tract-python"
-requires-python = ">=3.7"
+requires-python = ">=3.6"
+readme = "README.md"
+keywords = ["tract", "neural network engine", "deep learning"]
 classifiers = [
     "Programming Language :: Rust",
     "Programming Language :: Python :: Implementation :: CPython",
@@ -12,12 +14,8 @@ classifiers = [
     "Intended Audience :: Developers",
     "Natural Language :: English",
 ]
-
-dependencies = ["cffi", "numpy"]
-
+dependencies = ["cffi>=1.15.0", "numpy>=1.20.0"]
 description = "bindings of sonos/tract rust NN inference enging for python"
-
-liscense = "MIT"
 
 [project.optional-dependencies]
 dev = ["black", "bumpver", "isort", "pip-tools", "pytest"]
