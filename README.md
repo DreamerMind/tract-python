@@ -27,7 +27,7 @@ import tract_python
 tract_model = tract_python.TractModel.load_plan_from_nnef_dir(
   './test_simple_nnef/'
 )
-results = tm.run(input_0=np.arange(6).reshape(1, 2, 3).astype(np.float32))
+results = tract_model.run(input_0=np.arange(6).reshape(1, 2, 3).astype(np.float32))
 print(results)
 #{'output_0': array([[[ 0.,  2.,  4.],
 #       [ 6.,  8., 10.]]], dtype=float32)}
