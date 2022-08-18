@@ -9,19 +9,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - uses: actions/setup-python@v4
-      with:
-        python-version: '3.7'
     - name: Install dependencies
       run: |
         python3 -m pip install --upgrade pip
         python3 -m pip install cffi numpy maturin
-
-    - uses: messense/maturin-action@v1
-      with:
-        manylinux: auto
-        command: build
-        args: --release --sdist -o dist
+    - name: maturin-action
+      run: |
+        maturin build --release --sdist -o dist
     - name: Upload wheels
       uses: actions/upload-artifact@v2
       with:
