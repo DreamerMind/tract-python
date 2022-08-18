@@ -24,8 +24,8 @@ pip install tract_python
 ```python
 import tract_python
 
-tract_model = tract_python.TractModel.load_plan_from_nnef_dir(
-  './test_simple_nnef/'
+tract_model = tract_python.TractModel.load_plan_from_nnef_path(
+  './test_simple_nnef/' # simple graph that mul input by 2
 )
 results = tract_model.run(input_0=np.arange(6).reshape(1, 2, 3).astype(np.float32))
 print(results)
