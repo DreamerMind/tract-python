@@ -18,6 +18,7 @@ libc = "0.2"
 ndarray-npy = { version = "0.8.0", features = [ "compressed_npz" ] }
 
 tract-nnef = { git = "https://github.com/sonos/tract.git", ref = "be47f1d037302e7f9bf877af42df5d71a6badb17" }
+tract-onnx = { git = "https://github.com/sonos/tract.git", ref = "be47f1d037302e7f9bf877af42df5d71a6badb17" }
 tract-pulse = { git = "https://github.com/sonos/tract.git", ref = "be47f1d037302e7f9bf877af42df5d71a6badb17" }
 tract-hir = { git = "https://github.com/sonos/tract.git", ref = "be47f1d037302e7f9bf877af42df5d71a6badb17" }
 
