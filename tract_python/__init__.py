@@ -1,3 +1,4 @@
+import typing as T
 import io
 from pathlib import Path
 
@@ -18,11 +19,11 @@ class TractModel:
         self._original_path = original_path
 
     @classmethod
-    def load_nnef_from_path(cls, path: Path):
+    def load_from_path(cls, path: T.Union[Path, str]):
+        path = Path(path)
+        assert path.exists(), f"provided path: {path} does not exist"
         _model = ffi.new("CTypedModelPlan * *")
-        exit_code = lib.load_plan_from_nnef_path(
-            str(path).encode("utf-8"), _model
-        )
+        exit_code = lib.load_plan_from_path(str(path).encode("utf-8"), _model)
         if exit_code:
             lib_error = ffi.new("char * *")
             lib.tract_get_last_error(lib_error)
