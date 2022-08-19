@@ -50,6 +50,4 @@ Ideally I would like to support some others `tract-cli` features:
 - [ ] computing: number of FMA operations
 - [ ] computing: profiling infos
 
-We do not plan to support Tensorflow nor Kaldi models for now but it could be added if there is need for this.
-That said I do not have the bandwith to do it up-front.
-I welcome any contributor that would wish to add more features.
+We do not have the bandwith to do more and welcome any contributor that would wish to add more features.
