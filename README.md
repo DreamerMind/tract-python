@@ -25,7 +25,7 @@ pip install tract_python
 ```python
 import tract_python
 
-tract_model = tract_python.TractModel.load_plan_from_path(
+tract_model = tract_python.TractModel.load_from_path(
   # This parameter can be an ONNX or NNEF filepath (in case of NNEF it can be a dir or a tgz)
   './test_simple_nnef/' # simple graph that mul input by 2
 )
