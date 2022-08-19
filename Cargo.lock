@@ -72,6 +72,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "14c189c53d098945499cdfa7ecc63567cf3886b3332b312a5b4585d8d3a6a610"
 
 [[package]]
+name = "bytes"
+version = "1.2.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ec8a7b6a70fde80372154c65702f00a0f56f3e1c36abbc6c440484be248856db"
+
+[[package]]
 name = "cc"
 version = "1.0.73"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -243,6 +249,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "getrandom"
+version = "0.2.7"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4eb1a864a501629691edf6c15a593b7a51eebaa1e8468e9ddc623de7c9b58ec6"
+dependencies = [
+ "cfg-if",
+ "libc",
+ "wasi",
+]
+
+[[package]]
 name = "half"
 version = "2.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -382,6 +399,16 @@ name = "maplit"
 version = "1.0.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3e2e65a1a2e43cfcb47a895c4c8b10d1f4a61097f9f254f183aee60cad9c651d"
+
+[[package]]
+name = "mapr"
+version = "0.8.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "46a28a55dbc005b2f6f123c4058933d57add373d362f6fd3a76aab4fe6973500"
+dependencies = [
+ "libc",
+ "winapi",
+]
 
 [[package]]
 name = "matrixmultiply"
@@ -585,6 +612,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "ppv-lite86"
+version = "0.2.16"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "eb9f9e6e233e5c4a35559a617bf40a4ec447db2e84c20b55a6f83167b7e57872"
+
+[[package]]
 name = "proc-macro-hack"
 version = "0.5.19"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -621,6 +654,29 @@ dependencies = [
  "proc-macro-hack",
  "proc-macro2",
  "quote",
+]
+
+[[package]]
+name = "prost"
+version = "0.11.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "399c3c31cdec40583bb68f0b18403400d01ec4289c383aa047560439952c4dd7"
+dependencies = [
+ "bytes",
+ "prost-derive",
+]
+
+[[package]]
+name = "prost-derive"
+version = "0.11.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7345d5f0e08c0536d7ac7229952590239e77abf0a0100a1b1d890add6ea96364"
+dependencies = [
+ "anyhow",
+ "itertools",
+ "proc-macro2",
+ "quote",
+ "syn",
 ]
 
 [[package]]
@@ -702,6 +758,36 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "bbe448f377a7d6961e30f5955f9b8d106c3f5e449d493ee1b125c1d43c2b5179"
 dependencies = [
  "proc-macro2",
+]
+
+[[package]]
+name = "rand"
+version = "0.8.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "34af8d1a0e25924bc5b7c43c079c942339d8f0a8b57c39049bef581b46327404"
+dependencies = [
+ "libc",
+ "rand_chacha",
+ "rand_core",
+]
+
+[[package]]
+name = "rand_chacha"
+version = "0.3.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e6c10a63a0fa32252be49d21e7709d4d4baf8d231c2dbce1eaa8141b9b127d88"
+dependencies = [
+ "ppv-lite86",
+ "rand_core",
+]
+
+[[package]]
+name = "rand_core"
+version = "0.6.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d34f1408f55294453790c48b2f1ebbb1c5b4b7563eb1f418bcfcfdbb06ebb4e7"
+dependencies = [
+ "getrandom",
 ]
 
 [[package]]
@@ -902,7 +988,7 @@ checksum = "cda74da7e1a664f795bb1f8a87ec406fb89a02522cf6e50620d016add6dbbf5c"
 [[package]]
 name = "tract-core"
 version = "0.17.5-pre"
-source = "git+https://github.com/sonos/tract.git#be47f1d037302e7f9bf877af42df5d71a6badb17"
+source = "git+https://github.com/sonos/tract.git#c980a792bdd4c3aa966a5a07e06c2e8af4fb7cae"
 dependencies = [
  "anyhow",
  "bit-set",
@@ -924,7 +1010,7 @@ dependencies = [
 [[package]]
 name = "tract-data"
 version = "0.17.5-pre"
-source = "git+https://github.com/sonos/tract.git#be47f1d037302e7f9bf877af42df5d71a6badb17"
+source = "git+https://github.com/sonos/tract.git#c980a792bdd4c3aa966a5a07e06c2e8af4fb7cae"
 dependencies = [
  "anyhow",
  "educe",
@@ -943,7 +1029,7 @@ dependencies = [
 [[package]]
 name = "tract-hir"
 version = "0.17.5-pre"
-source = "git+https://github.com/sonos/tract.git#be47f1d037302e7f9bf877af42df5d71a6badb17"
+source = "git+https://github.com/sonos/tract.git#c980a792bdd4c3aa966a5a07e06c2e8af4fb7cae"
 dependencies = [
  "derive-new",
  "educe",
@@ -954,7 +1040,7 @@ dependencies = [
 [[package]]
 name = "tract-linalg"
 version = "0.17.5-pre"
-source = "git+https://github.com/sonos/tract.git#be47f1d037302e7f9bf877af42df5d71a6badb17"
+source = "git+https://github.com/sonos/tract.git#c980a792bdd4c3aa966a5a07e06c2e8af4fb7cae"
 dependencies = [
  "cc",
  "derive-new",
@@ -978,7 +1064,7 @@ dependencies = [
 [[package]]
 name = "tract-nnef"
 version = "0.17.5-pre"
-source = "git+https://github.com/sonos/tract.git#be47f1d037302e7f9bf877af42df5d71a6badb17"
+source = "git+https://github.com/sonos/tract.git#c980a792bdd4c3aa966a5a07e06c2e8af4fb7cae"
 dependencies = [
  "byteorder",
  "flate2",
@@ -990,9 +1076,38 @@ dependencies = [
 ]
 
 [[package]]
+name = "tract-onnx"
+version = "0.17.5-pre"
+source = "git+https://github.com/sonos/tract.git#c980a792bdd4c3aa966a5a07e06c2e8af4fb7cae"
+dependencies = [
+ "bytes",
+ "derive-new",
+ "educe",
+ "log",
+ "mapr",
+ "num-integer",
+ "prost",
+ "smallvec",
+ "tract-hir",
+ "tract-nnef",
+ "tract-onnx-opl",
+]
+
+[[package]]
+name = "tract-onnx-opl"
+version = "0.17.5-pre"
+source = "git+https://github.com/sonos/tract.git#c980a792bdd4c3aa966a5a07e06c2e8af4fb7cae"
+dependencies = [
+ "educe",
+ "getrandom",
+ "rand",
+ "tract-nnef",
+]
+
+[[package]]
 name = "tract-pulse"
 version = "0.17.5-pre"
-source = "git+https://github.com/sonos/tract.git#be47f1d037302e7f9bf877af42df5d71a6badb17"
+source = "git+https://github.com/sonos/tract.git#c980a792bdd4c3aa966a5a07e06c2e8af4fb7cae"
 dependencies = [
  "downcast-rs",
  "lazy_static",
@@ -1002,7 +1117,7 @@ dependencies = [
 [[package]]
 name = "tract-pulse-opl"
 version = "0.17.5-pre"
-source = "git+https://github.com/sonos/tract.git#be47f1d037302e7f9bf877af42df5d71a6badb17"
+source = "git+https://github.com/sonos/tract.git#c980a792bdd4c3aa966a5a07e06c2e8af4fb7cae"
 dependencies = [
  "downcast-rs",
  "lazy_static",
@@ -1020,6 +1135,7 @@ dependencies = [
  "pyo3",
  "tract-hir",
  "tract-nnef",
+ "tract-onnx",
  "tract-pulse",
 ]
 
@@ -1078,6 +1194,12 @@ dependencies = [
  "winapi",
  "winapi-util",
 ]
+
+[[package]]
+name = "wasi"
+version = "0.11.0+wasi-snapshot-preview1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9c8d87e72b64a3b4db28d11ce29237c246188f4f51057d65a7eab63b7987e423"
 
 [[package]]
 name = "winapi"
