@@ -174,9 +174,9 @@ pub fn call_run_typed_model_plan(
     }
     let outputs_buffer_len = output_buffer.len();
     unsafe {
-        let b = std::ffi::CString::from_vec_unchecked(output_buffer);
-        let raw_result: *const ::libc::c_char = b.into_raw_pointer();
-        *npz_outputs_buffer_ptr = raw_result as _;
+        let c_buffer = std::ffi::CString::from_vec_unchecked(output_buffer);
+        let result_raw_ptr: *const ::libc::c_char = c_buffer.into_raw_pointer();
+        *npz_outputs_buffer_ptr = result_raw_ptr as _;
         *npz_outputs_buffer_length = outputs_buffer_len as _;
     }
 
