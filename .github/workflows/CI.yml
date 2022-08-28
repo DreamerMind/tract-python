@@ -21,7 +21,7 @@ jobs:
         maturin build --release --sdist -o dist
     - name: valgrind leaks checks
       run: |
-        apt install -y valgrind
+        sudo apt install -y valgrind
         PYTHONMALLOC=malloc valgrind --tool=memcheck --leak-check=full python test_run.py
     - name: Upload wheels
       uses: actions/upload-artifact@v2
