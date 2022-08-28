@@ -5,7 +5,8 @@
  [![CI](https://github.com/DreamerMind/tract-python/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/DreamerMind/tract-python/actions/workflows/CI.yml)
 
 [Tract inference engine](https://github.com/sonos/tract) bindings in Python via FFI.
-It support Neural Network inference from NNEF or ONNX
+It support Neural Network inference from NNEF or ONNX.
+
 
 ## Why
 
@@ -39,16 +40,16 @@ print(results)
 
 ## Status
 
-This project is in alpha state.
+This project is maintained with latest tract version.
 
 ## Scope
 
-My personnal usecase is to be able to run benchmarks (+10M inferences) with 'tract' engine.
+Our personnal usecase is to be able to run +10M inferences with 'tract' engine.
+So loading/running NNEF or ONNX is sufficient.
 
-Ideally I would like to support some others `tract-cli` features:
-- [X] load NNEF dir and .tgz or ONNX
-- [X] run simple plan
+We would be happy to support some others `tract-cli` features:
 - [ ] computing: number of FMA operations
 - [ ] computing: profiling infos
 
+(Thought it would be better to extract from `tract-cli` a `tract-profile` crate first in original repo to avoid code duplicate)
 We do not have the bandwith to do more and welcome any contributor that would wish to add more features.
