@@ -120,7 +120,6 @@ pub fn call_run_typed_model_plan(
     npz_outputs_buffer_length: *mut libc::size_t,
 ) -> Result<()> {
     let plan = get_typed_model_plan_from!(*plan_ptr);
-    unsafe { *plan_ptr = plan.into_raw_pointer() as _ };
 
     // load npz into ndarray
     let bits: &[u8] = unsafe {
