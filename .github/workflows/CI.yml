@@ -19,7 +19,6 @@ jobs:
     - name: maturin-action
       run: |
         maturin build --release --sdist -o dist
-    - name: valgrind leaks checks
     - name: Upload wheels
       uses: actions/upload-artifact@v2
       with:
