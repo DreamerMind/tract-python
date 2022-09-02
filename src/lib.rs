@@ -63,6 +63,12 @@ pub extern "C" fn tract_get_last_error(error: *mut *mut ::libc::c_char) -> Tract
 }
 
 #[no_mangle]
+pub extern "C" fn tract_destroy_buffer(ptr: *mut libc::c_char) -> TractResult {
+    unsafe { libc::free(ptr as *mut libc::c_void) }
+    TractResult::TRACT_OK
+}
+
+#[no_mangle]
 pub extern "C" fn tract_destroy_string(ptr: *mut libc::c_char) -> TractResult {
     {
         unsafe { CString::from_raw(ptr) };

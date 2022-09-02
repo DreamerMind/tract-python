@@ -63,6 +63,7 @@ class TractModel:
         )
         outputs_buffer_len = ffi.unpack(npz_outputs_buffer_length_ref, 1)[0]
         raw_output_bytes = ffi.unpack(raw_output_ref[0], outputs_buffer_len)
+        lib.tract_destroy_buffer(raw_output_ref[0])
 
         if exit_code:
             lib_error = ffi.new("char * *")
