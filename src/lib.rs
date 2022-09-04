@@ -69,6 +69,16 @@ pub extern "C" fn tract_destroy_buffer(ptr: *mut libc::c_char) -> TractResult {
 }
 
 #[no_mangle]
+pub extern "C" fn tract_destroy_plan(plan_ptr: *mut *const CTypedModelPlan) -> TractResult {
+    wrap(|| unsafe {
+        TypedRunnableModel::<TypedModel>::drop_raw_pointer(
+            CTypedModelPlan::raw_borrow(*plan_ptr)?.0 as *mut TypedRunnableModel<TypedModel>,
+        )?;
+        Ok(())
+    })
+}
+
+#[no_mangle]
 pub extern "C" fn tract_destroy_string(ptr: *mut libc::c_char) -> TractResult {
     {
         unsafe { CString::from_raw(ptr) };
@@ -106,7 +116,6 @@ pub fn call_load_plan_from_path(
         SimplePlan::new(typed_model.into_decluttered()?.into_optimized()?)?;
 
     let cplan = CTypedModelPlan(plan.into_raw_pointer() as _);
-
     unsafe { *plan_ptr = cplan.into_raw_pointer() as _ };
 
     Ok(())

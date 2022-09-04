@@ -18,6 +18,9 @@ class TractModel:
         self._typed_model_plan_ptr = typed_model_plan_ptr
         self._original_path = original_path
 
+    def __del__(self):
+        lib.tract_destroy_plan(self._typed_model_plan_ptr)
+
     @classmethod
     def load_from_path(cls, path: T.Union[Path, str]):
         path = Path(path)
