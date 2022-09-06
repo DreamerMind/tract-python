@@ -8,6 +8,8 @@ from .tract_python import ffi, lib
 
 __version__ = "0.2.3"
 
+TRACT_VERSION = "0.17.7"
+
 
 def string_at(ptr):
     return ffi.string(ptr[0])

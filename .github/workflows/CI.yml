@@ -16,6 +16,9 @@ jobs:
       run: |
         python3 -m pip install --upgrade pip
         python3 -m pip install cffi numpy maturin
+    - name: Check tract version in sync
+      run: |
+        ./check_tract_version_insync.sh
     - name: maturin-action
       run: |
         maturin build --release --sdist -o dist
