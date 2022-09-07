@@ -4,14 +4,17 @@
  [![PyPI version](https://badge.fury.io/py/tract_python.svg)](https://badge.fury.io/py/tract_python)
  [![CI](https://github.com/DreamerMind/tract-python/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/DreamerMind/tract-python/actions/workflows/CI.yml)
 
-[Tract inference engine](https://github.com/sonos/tract) bindings in Python via FFI.
+[tract inference engine](https://github.com/sonos/tract) bindings in Python via FFI.
 It support Neural Network inference from NNEF or ONNX.
-
 
 ## Why
 
+No need to compile tract or have cargo installed, fast install.
+
 `tract-cli` is very feature-full but reloading a model each time you wish
 to do an inference is computationaly costy and slow.
+
+Think `onnxruntime` except it support NNEF, and it is based on tract.
 
 ## Install
 
