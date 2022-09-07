@@ -158,9 +158,13 @@ pub fn call_run_typed_model_plan(
             let possible_match = vectors
                 .iter()
                 .find(|(node_id, _)| node_id == &outlet_uid.node);
+
             match possible_match {
                 Some((_, tensor)) => Ok(tensor.to_owned()),
-                _ => bail!("input with id: {:#?} not provided", outlet_uid),
+                _ => bail!(
+                    "input with id: {:#?} not provided",
+                    plan.model.node(outlet_uid.node).name
+                ),
             }
         })
         .collect::<Result<Vec<_>>>()?;
