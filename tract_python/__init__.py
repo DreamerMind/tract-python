@@ -6,7 +6,7 @@ import numpy as np
 
 from .tract_python import ffi, lib
 
-__version__ = "0.2.5"
+__version__ = "0.2.6"
 
 TRACT_VERSION = "0.17.7"
 

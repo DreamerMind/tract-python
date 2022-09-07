@@ -1,6 +1,6 @@
 [package]
 name = "tract-python"
-version = "0.2.5"
+version = "0.2.6"
 edition = "2021"
 authors = ["Julien Balian <julien.balian@sonos.com>"]
 
