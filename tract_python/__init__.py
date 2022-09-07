@@ -106,15 +106,17 @@ class TractModel:
             raw_output_ref,
             npz_outputs_buffer_length_ref,
         )
-        outputs_buffer_len = ffi.unpack(npz_outputs_buffer_length_ref, 1)[0]
-        raw_output_bytes = ffi.unpack(raw_output_ref[0], outputs_buffer_len)
-        lib.tract_destroy_buffer(raw_output_ref[0])
 
         if exit_code:
             lib_error = ffi.new("char * *")
             lib.tract_get_last_error(lib_error)
             lib_error = _string_at(lib_error).decode("utf-8")
             raise RuntimeError(f"Error while running plan: {lib_error}")
+
+        outputs_buffer_len = ffi.unpack(npz_outputs_buffer_length_ref, 1)[0]
+        raw_output_bytes = ffi.unpack(raw_output_ref[0], outputs_buffer_len)
+        lib.tract_destroy_buffer(raw_output_ref[0])
+
         # reload output.npz
         # raw_output_ref is incorrect for now
         outputs_buffer = io.BytesIO(raw_output_bytes)
