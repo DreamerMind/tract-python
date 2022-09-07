@@ -1135,7 +1135,7 @@ dependencies = [
 
 [[package]]
 name = "tract-python"
-version = "0.2.3"
+version = "0.2.5"
 dependencies = [
  "anyhow",
  "ffi-convert",

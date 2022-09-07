@@ -1,7 +1,7 @@
 use std::path::Path;
 use tract_hir::prelude::*;
 
-use anyhow::{Context, Result};
+use anyhow::{bail, Context, Result};
 use ffi_convert::{CReprOf, RawBorrow, RawPointerConverter};
 use std::cell::RefCell;
 use std::ffi::CString;
@@ -144,10 +144,10 @@ pub fn call_run_typed_model_plan(
         .iter()
         .map(|n| {
             let name = n.trim_end_matches(".npy").to_string();
-            let node_id = plan.model.node_by_name(name).unwrap().id;
-            (node_id, for_npz(&mut input_npz, &n).unwrap())
+            let node_id = plan.model.node_by_name(name)?.id;
+            Ok((node_id, for_npz(&mut input_npz, &n)?))
         })
-        .collect::<Vec<(usize, Tensor)>>();
+        .collect::<Result<Vec<(usize, Tensor)>>>()?;
 
     // ensure model inputs order
     let ordered_vectors = plan
@@ -155,13 +155,15 @@ pub fn call_run_typed_model_plan(
         .inputs
         .iter()
         .map(|outlet_uid| {
-            let (_, tensor) = vectors
+            let possible_match = vectors
                 .iter()
-                .find(|(node_id, _)| node_id == &outlet_uid.node)
-                .unwrap();
-            tensor.to_owned()
+                .find(|(node_id, _)| node_id == &outlet_uid.node);
+            match possible_match {
+                Some((_, tensor)) => Ok(tensor.to_owned()),
+                _ => bail!("input with id: {:#?} not provided", outlet_uid),
+            }
         })
-        .collect::<Vec<_>>();
+        .collect::<Result<Vec<_>>>()?;
 
     let svec = TVec::from_vec(ordered_vectors);
     // run network with npz content
