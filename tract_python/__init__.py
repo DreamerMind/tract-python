@@ -11,7 +11,7 @@ __version__ = "0.2.5"
 TRACT_VERSION = "0.17.7"
 
 
-def string_at(ptr):
+def _string_at(ptr):
     return ffi.string(ptr[0])
 
 
@@ -59,7 +59,7 @@ class TractModel:
         if exit_code:
             lib_error = ffi.new("char * *")
             lib.tract_get_last_error(lib_error)
-            lib_error = string_at(lib_error).decode("utf-8")
+            lib_error = _string_at(lib_error).decode("utf-8")
             raise RuntimeError(f"Error while creating plan: {lib_error}")
         return cls(_model, path)
 
@@ -113,7 +113,7 @@ class TractModel:
         if exit_code:
             lib_error = ffi.new("char * *")
             lib.tract_get_last_error(lib_error)
-            lib_error = string_at(lib_error).decode("utf-8")
+            lib_error = _string_at(lib_error).decode("utf-8")
             raise RuntimeError(f"Error while running plan: {lib_error}")
         # reload output.npz
         # raw_output_ref is incorrect for now
