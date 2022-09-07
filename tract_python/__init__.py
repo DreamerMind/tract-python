@@ -15,16 +15,43 @@ def string_at(ptr):
     return ffi.string(ptr[0])
 
 
+_WARN_INSTANTIATION_CTYPE_MSG = (
+    "typed_model_plan_ptr must be a ctype('struct CTypedModelPlan * *'). "
+    "Wrong instantiation is unexpected. "
+    "Maybe you didn't use '.load_from_path' method ?"
+)
+
+
 class TractModel:
+    """Load a tract model plan in memory and allow run inferences on it
+
+    Real Tract model behind FFI is deallocated from memory
+    when this class instance is garbage collected.
+
+    """
+
     def __init__(self, typed_model_plan_ptr, original_path: Path):
+        if not Path(original_path).exists():
+            raise ValueError(f"{original_path} does not exists")
+        try:
+            ctype = ffi.typeof(typed_model_plan_ptr)
+            if ctype.cname != "struct CTypedModelPlan * *":
+                raise ValueError(_WARN_INSTANTIATION_CTYPE_MSG)
+        except Exception as e:
+            raise ValueError(_WARN_INSTANTIATION_CTYPE_MSG) from e
         self._typed_model_plan_ptr = typed_model_plan_ptr
         self._original_path = original_path
 
     def __del__(self):
-        lib.tract_destroy_plan(self._typed_model_plan_ptr)
+        if hasattr(self, "_typed_model_plan_ptr"):
+            lib.tract_destroy_plan(self._typed_model_plan_ptr)
 
     @classmethod
-    def load_from_path(cls, path: T.Union[Path, str]):
+    def load_from_path(cls, path: T.Union[Path, str]) -> "TractModel":
+        """Load any an ONNX or NNEF model plan from a filepath.
+
+        In case of NNEF it can be a dir or a tgz.
+        """
         path = Path(path)
         assert path.exists(), f"provided path: {path} does not exist"
         _model = ffi.new("CTypedModelPlan * *")
@@ -37,6 +64,19 @@ class TractModel:
         return cls(_model, path)
 
     def run(self, **kwargs):
+        """run an inference of this instance 'plan' with provided parameters.
+
+
+        Args:
+            Each parameter name must be a 'label' of an input node in
+                the provided ONNX or NNEF model graph.
+            All tensors provided must be numpy arrays (be carefull with types).
+            All inputs need to be filled.
+
+        Returns:
+            dict with keys being model graph outputs labels and values numpy
+            array containing the result for this node
+        """
         for k, v in kwargs.items():
             if not isinstance(k, str):
                 raise TypeError(
