@@ -52,7 +52,9 @@ def test_wrong_inputs_name():
     try:
         tm.run(my_wrong_input_name=init_input)
     except RuntimeError as exp:
-        assert 'No node found for name: "my_wrong_input_name"' in exp.args[0]
+        assert (
+            'No node found for name: "my_wrong_input_name"' in exp.args[0]
+        ), exp.args[0]
 
 
 def test_missing_input():
@@ -60,7 +62,9 @@ def test_missing_input():
     try:
         tm.run()
     except RuntimeError as exp:
-        assert 'input with id: \\"input_0\\" not provided' in exp.args[0]
+        assert (
+            'input with id: \\"input_0\\" not provided' in exp.args[0]
+        ), exp.args[0]
 
 
 def test_wrong_input_type():
@@ -72,4 +76,4 @@ def test_wrong_input_type():
         assert all(
             _ in exp.args[0]
             for _ in ("Error while running plan", "Evaluating", "F32", "I64")
-        )
+        ), exp.args[0]
