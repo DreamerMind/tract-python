@@ -26,7 +26,7 @@ def simple_model_load_and_execute_n_times(mul_model_path):
 
 
 def test_mul2_nnef():
-    simple_model_load_and_execute_n_times(assets_dir / "test_simple_nnef")
+    simple_model_load_and_execute_n_times(assets_dir / "mul2.nnef.tgz")
 
 
 def test_mul2_onnx():
@@ -47,7 +47,7 @@ def test_load_onnx_tract_unable():
 
 
 def test_wrong_inputs_name():
-    tm = tract_python.TractModel.load_from_path(assets_dir / "test_simple_nnef")
+    tm = tract_python.TractModel.load_from_path(assets_dir / "mul2.nnef.tgz")
     init_input = np.arange(6).reshape(1, 2, 3).astype(np.float32)
     try:
         tm.run(my_wrong_input_name=init_input)
@@ -56,7 +56,7 @@ def test_wrong_inputs_name():
 
 
 def test_missing_input():
-    tm = tract_python.TractModel.load_from_path(assets_dir / "test_simple_nnef")
+    tm = tract_python.TractModel.load_from_path(assets_dir / "mul2.nnef.tgz")
     try:
         tm.run()
     except RuntimeError as exp:
@@ -64,7 +64,7 @@ def test_missing_input():
 
 
 def test_wrong_input_type():
-    tm = tract_python.TractModel.load_from_path(assets_dir / "test_simple_nnef")
+    tm = tract_python.TractModel.load_from_path(assets_dir / "mul2.nnef.tgz")
     init_input = np.arange(6).reshape(1, 2, 3)
     try:
         tm.run(input_0=init_input)
