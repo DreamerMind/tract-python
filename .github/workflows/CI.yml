@@ -19,6 +19,11 @@ jobs:
     - name: Check tract version in sync
       run: |
         ./check_tract_version_insync.sh
+    - name: run python tests
+      run: |
+        maturin develop
+        python3 -m pip install pytest
+        pytest ./tests
     - name: maturin-action
       run: |
         maturin build --release --sdist -o dist
@@ -36,6 +41,11 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install cffi numpy
+    - name: run python tests
+      run: |
+        maturin develop
+        pip install pytest
+        pytest ./tests
     - uses: messense/maturin-action@v1
       with:
         command: build
@@ -54,6 +64,11 @@ jobs:
       run: |
         /Users/runner/hostedtoolcache/Python/3.9.13/x64/bin/python3 -m pip install --upgrade pip
         /Users/runner/hostedtoolcache/Python/3.9.13/x64/bin/python3 -m pip install cffi numpy
+    - name: run python tests
+      run: |
+        maturin develop
+        /Users/runner/hostedtoolcache/Python/3.9.13/x64/bin/python3 -m pip install pytest
+        pytest ./tests
     - uses: messense/maturin-action@v1
       with:
         command: build
