@@ -69,7 +69,7 @@ def test_wrong_input_type():
     try:
         tm.run(input_0=init_input)
     except RuntimeError as exp:
-        assert (
-            'Error while running plan: "Evaluating #0 \\"input_0\\" Source: output 0,'
-            " expected 1,S,3,F32, got 1,2,3,I64"
-        ) in exp.args[0]
+        assert all(
+            _ in exp.args[0]
+            for _ in ("Error while running plan", "Evaluating", "F32", "I64")
+        )
