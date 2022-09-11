@@ -48,7 +48,7 @@ jobs:
     - name: run python tests
       run: |
         pip install pytest
-        pip install ./dist/`ls  ./dist/ |grep '.whl'|head -1`
+        pip install --no-index --find-links=dist/ tract_python
         pytest ./tests
     - name: Upload wheels
       uses: actions/upload-artifact@v2
