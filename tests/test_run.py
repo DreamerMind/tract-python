@@ -69,7 +69,7 @@ def test_missing_input():
 
 def test_wrong_input_type():
     tm = tract_python.TractModel.load_from_path(assets_dir / "mul2.nnef.tgz")
-    init_input = np.arange(6).reshape(1, 2, 3)
+    init_input = np.arange(6).reshape(1, 2, 3).astype(np.int64)
     try:
         tm.run(input_0=init_input)
     except RuntimeError as exp:
