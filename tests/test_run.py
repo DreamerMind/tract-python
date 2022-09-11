@@ -57,7 +57,6 @@ def test_wrong_inputs_name():
 
 def test_missing_input():
     tm = tract_python.TractModel.load_from_path(assets_dir / "test_simple_nnef")
-    init_input = np.arange(6).reshape(1, 2, 3).astype(np.float32)
     try:
         tm.run()
     except RuntimeError as exp:
