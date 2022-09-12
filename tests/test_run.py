@@ -2,6 +2,7 @@ from pathlib import Path
 import tract_python
 import numpy as np
 from urllib import request
+from tract_python import TractRuntimeError, TractTypeError, TractModelInitError
 
 test_dir = Path(__file__).parent
 assets_dir = test_dir / "assets"
@@ -41,7 +42,7 @@ def test_load_onnx_tract_unable():
     )
     try:
         tract_python.TractModel.load_from_path(local_model_path)
-    except RuntimeError as exp:
+    except TractRuntimeError as exp:
         # expect fail at load time since tract error
         assert "invalid wire type value: 6" in exp.args[0]
 
@@ -51,7 +52,7 @@ def test_wrong_inputs_name():
     init_input = np.arange(6).reshape(1, 2, 3).astype(np.float32)
     try:
         tm.run(my_wrong_input_name=init_input)
-    except RuntimeError as exp:
+    except TractRuntimeError as exp:
         assert (
             'No node found for name: "my_wrong_input_name"' in exp.args[0]
         ), exp.args[0]
@@ -61,7 +62,7 @@ def test_missing_input():
     tm = tract_python.TractModel.load_from_path(assets_dir / "mul2.nnef.tgz")
     try:
         tm.run()
-    except RuntimeError as exp:
+    except TractRuntimeError as exp:
         assert (
             'input with id: \\"input_0\\" not provided' in exp.args[0]
         ), exp.args[0]
@@ -72,8 +73,23 @@ def test_wrong_input_type():
     init_input = np.arange(6).reshape(1, 2, 3).astype(np.int64)
     try:
         tm.run(input_0=init_input)
-    except RuntimeError as exp:
+    except TractRuntimeError as exp:
         assert all(
             _ in exp.args[0]
             for _ in ("Error while running plan", "Evaluating", "F32", "I64")
         ), exp.args[0]
+
+
+def test_wrong_run_parameters():
+    tm = tract_python.TractModel.load_from_path(assets_dir / "mul2.nnef.tgz")
+    try:
+        tm.run(**{"input_0": None})
+    except TractTypeError as exp:
+        assert "have np.ndarray as values" in exp.args[0]
+
+
+def test_wrong_init_model():
+    try:
+        tract_python.TractModel(None, assets_dir / "not_exists.nnef.tgz")
+    except TractModelInitError as exp:
+        assert "does not exists" in exp.args[0]

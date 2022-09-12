@@ -11,6 +11,22 @@ __version__ = "0.2.6"
 TRACT_VERSION = "0.17.7"
 
 
+class TractPythonError(Exception):
+    pass
+
+
+class TractModelInitError(ValueError, TractPythonError):
+    pass
+
+
+class TractTypeError(TypeError, TractPythonError):
+    pass
+
+
+class TractRuntimeError(RuntimeError, TractPythonError):
+    pass
+
+
 def _string_at(ptr):
     return ffi.string(ptr[0])
 
@@ -32,13 +48,13 @@ class TractModel:
 
     def __init__(self, typed_model_plan_ptr, original_path: Path):
         if not Path(original_path).exists():
-            raise ValueError(f"{original_path} does not exists")
+            raise TractModelInitError(f"{original_path} does not exists")
         try:
             ctype = ffi.typeof(typed_model_plan_ptr)
             if ctype.cname != "struct CTypedModelPlan * *":
-                raise ValueError(_WARN_INSTANTIATION_CTYPE_MSG)
+                raise TractModelInitError(_WARN_INSTANTIATION_CTYPE_MSG)
         except Exception as e:
-            raise ValueError(_WARN_INSTANTIATION_CTYPE_MSG) from e
+            raise TractModelInitError(_WARN_INSTANTIATION_CTYPE_MSG) from e
         self._typed_model_plan_ptr = typed_model_plan_ptr
         self._original_path = original_path
 
@@ -60,7 +76,7 @@ class TractModel:
             lib_error = ffi.new("char * *")
             lib.tract_get_last_error(lib_error)
             lib_error = _string_at(lib_error).decode("utf-8")
-            raise RuntimeError(f"Error while creating plan: {lib_error}")
+            raise TractRuntimeError(f"Error while creating plan: {lib_error}")
         return cls(_model, path)
 
     def run(self, **kwargs):
@@ -78,12 +94,8 @@ class TractModel:
             array containing the result for this node
         """
         for k, v in kwargs.items():
-            if not isinstance(k, str):
-                raise TypeError(
-                    ".run(**kwargs) need kwargs to have str as keys"
-                )
             if not isinstance(v, np.ndarray):
-                raise TypeError(
+                raise TractTypeError(
                     ".run(**kwargs) need kwargs to have np.ndarray as values"
                 )
         # We use npz format as exchange format between numpy and ndarray
@@ -111,7 +123,7 @@ class TractModel:
             lib_error = ffi.new("char * *")
             lib.tract_get_last_error(lib_error)
             lib_error = _string_at(lib_error).decode("utf-8")
-            raise RuntimeError(f"Error while running plan: {lib_error}")
+            raise TractRuntimeError(f"Error while running plan: {lib_error}")
 
         outputs_buffer_len = ffi.unpack(npz_outputs_buffer_length_ref, 1)[0]
         raw_output_bytes = ffi.unpack(raw_output_ref[0], outputs_buffer_len)
