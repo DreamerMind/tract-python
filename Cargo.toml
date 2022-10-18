@@ -17,10 +17,10 @@ libc = "0.2"
 
 ndarray-npy = { version = "0.8.0", features = [ "compressed_npz" ] }
 
-tract-nnef = "0.18.0"
-tract-onnx = "0.18.0"
-tract-pulse = "0.18.0"
-tract-hir = "0.18.0"
+tract-nnef = "0.18.2"
+tract-onnx = "0.18.2"
+tract-pulse = "0.18.2"
+tract-hir = "0.18.2"
 
 [package.metadata.maturin]
 requires-dist = ["cffi", "numpy"]
