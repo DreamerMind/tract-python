@@ -81,7 +81,9 @@ pub extern "C" fn tract_destroy_plan(plan_ptr: *mut *const CTypedModelPlan) -> T
 #[no_mangle]
 pub extern "C" fn tract_destroy_string(ptr: *mut libc::c_char) -> TractResult {
     {
-        unsafe { CString::from_raw(ptr) };
+        unsafe {
+            let _ = CString::from_raw(ptr);
+        };
     }
     TractResult::TRACT_OK
 }

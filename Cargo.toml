@@ -22,5 +22,5 @@ tract-onnx = "0.20.18"
 tract-pulse = "0.20.18"
 tract-hir = "0.20.18"
 
-[package.metadata.maturin]
+[tool.maturin]
 requires-dist = ["cffi", "numpy"]

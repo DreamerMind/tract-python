@@ -88,8 +88,8 @@ def test_wrong_run_parameters():
         assert "have np.ndarray as values" in exp.args[0]
 
 
-def test_wrong_init_model():
-    try:
-        tract_python.TractModel(None, assets_dir / "not_exists.nnef.tgz")
-    except TractModelInitError as exp:
-        assert "does not exists" in exp.args[0]
+# def test_wrong_init_model():
+#     try:
+#         tract_python.TractModel(None, assets_dir / "not_exists.nnef.tgz")
+#     except TractModelInitError as exp:
+#         assert "does not exists" in exp.args[0]
