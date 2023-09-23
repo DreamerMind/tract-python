@@ -1,8 +1,12 @@
 # tract-python
 
+Project Archived: tract now maintains it's own Python package [here](https://github.com/sonos/tract/tree/main/api/py).
+
  [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
  [![PyPI version](https://badge.fury.io/py/tract_python.svg)](https://badge.fury.io/py/tract_python)
  [![CI](https://github.com/DreamerMind/tract-python/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/DreamerMind/tract-python/actions/workflows/CI.yml)
+
+
 
 [tract inference engine](https://github.com/sonos/tract) bindings in Python via FFI.
 It support Neural Network inference from NNEF or ONNX.

@@ -63,16 +63,16 @@ jobs:
     - name: Install dependencies
       run: |
         ls /Users/runner/hostedtoolcache/Python/
-        /Users/runner/hostedtoolcache/Python/3.9.14/x64/bin/python3 -m pip install --upgrade pip
-        /Users/runner/hostedtoolcache/Python/3.9.14/x64/bin/python3 -m pip install cffi numpy
+        /Users/runner/hostedtoolcache/Python/3.9.18/x64/bin/python3 -m pip install --upgrade pip
+        /Users/runner/hostedtoolcache/Python/3.9.18/x64/bin/python3 -m pip install cffi numpy
     - uses: messense/maturin-action@v1
       with:
         command: build
         args: --release -o dist --universal2
     - name: run python tests
       run: |
-        /Users/runner/hostedtoolcache/Python/3.9.14/x64/bin/python3 -m pip install pytest
-        /Users/runner/hostedtoolcache/Python/3.9.14/x64/bin/python3 -m pip install ./dist/`ls  ./dist/ |grep '.whl'|head -1`
+        /Users/runner/hostedtoolcache/Python/3.9.18/x64/bin/python3 -m pip install pytest
+        /Users/runner/hostedtoolcache/Python/3.9.18/x64/bin/python3 -m pip install ./dist/`ls  ./dist/ |grep '.whl'|head -1`
         pytest ./tests
     - name: Upload wheels
       uses: actions/upload-artifact@v2
