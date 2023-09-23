@@ -8,7 +8,7 @@ from .tract_python import ffi, lib
 
 __version__ = "0.2.9"
 
-TRACT_VERSION = "0.18.2"
+TRACT_VERSION = "0.20.18"
 
 
 class TractPythonError(Exception):
