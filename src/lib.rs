@@ -144,14 +144,14 @@ pub fn call_run_typed_model_plan(
         .iter()
         .map(|n| {
             let name = n.trim_end_matches(".npy").to_string();
-            let node_id = plan.model.node_by_name(name)?.id;
+            let node_id = plan.model().node_by_name(name)?.id;
             Ok((node_id, for_npz(&mut input_npz, &n)?))
         })
         .collect::<Result<Vec<(usize, Tensor)>>>()?;
 
     // ensure model inputs order
     let ordered_vectors = plan
-        .model
+        .model()
         .inputs
         .iter()
         .map(|outlet_uid| {
@@ -160,10 +160,10 @@ pub fn call_run_typed_model_plan(
                 .find(|(node_id, _)| node_id == &outlet_uid.node);
 
             match possible_match {
-                Some((_, tensor)) => Ok(tensor.to_owned()),
+                Some((_, tensor)) => Ok(TValue::Const(Arc::new(tensor.to_owned()))),
                 _ => bail!(
                     "input with id: {:#?} not provided",
-                    plan.model.node(outlet_uid.node).name
+                    plan.model().node(outlet_uid.node).name
                 ),
             }
         })
@@ -185,8 +185,8 @@ pub fn call_run_typed_model_plan(
         let mut output_npz = ndarray_npy::NpzWriter::new(std::io::Cursor::new(&mut output_buffer));
         for (ix, output) in results.iter().enumerate() {
             let name = plan
-                .model
-                .outlet_label(plan.model.output_outlets()?[ix])
+                .model()
+                .outlet_label(plan.model().output_outlets()?[ix])
                 .map(|name| name.to_string())
                 .unwrap_or_else(|| format!("output_{}", ix));
             npz_add_tensor(&mut output_npz, name, output)?;
