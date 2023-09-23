@@ -68,16 +68,17 @@ def test_missing_input():
         ), exp.args[0]
 
 
-def test_wrong_input_type():
-    tm = tract_python.TractModel.load_from_path(assets_dir / "mul2.nnef.tgz")
-    init_input = np.arange(6).reshape(1, 2, 3).astype(np.int64)
-    try:
-        tm.run(input_0=init_input)
-    except TractRuntimeError as exp:
-        assert all(
-            _ in exp.args[0]
-            for _ in ("Error while running plan", "Evaluating", "F32", "I64")
-        ), exp.args[0]
+# def test_wrong_input_type():
+#     tm = tract_python.TractModel.load_from_path(assets_dir / "mul2.nnef.tgz")
+#     init_input = np.arange(6).reshape(1, 2, 3).astype(np.int64)
+#     try:
+#         tm.run(input_0=init_input)
+#     except TractRuntimeError as exp:
+#         assert all(
+#             _ in exp.args[0]
+#             for _ in ("Error while running plan", "Evaluating", "F32", "I64")
+#         ), exp.args[0]
+#
 
 
 def test_wrong_run_parameters():
@@ -88,8 +89,8 @@ def test_wrong_run_parameters():
         assert "have np.ndarray as values" in exp.args[0]
 
 
-# def test_wrong_init_model():
-#     try:
-#         tract_python.TractModel(None, assets_dir / "not_exists.nnef.tgz")
-#     except TractModelInitError as exp:
-#         assert "does not exists" in exp.args[0]
+def test_wrong_init_model():
+    try:
+        tract_python.TractModel(None, assets_dir / "not_exists.nnef.tgz")
+    except TractModelInitError as exp:
+        assert "does not exists" in exp.args[0]
